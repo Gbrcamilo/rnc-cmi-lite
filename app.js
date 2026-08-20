@@ -47,24 +47,27 @@
       const item = list.find(r => r.id === id);
       if(item){ item.status = status; saveLocal(list); }
     }
-    renderLista();
+    renderPainel();
   }
 
-  // Navegacao
-  const navAbrir = document.getElementById('navAbrir');
-  const navLista = document.getElementById('navLista');
-  const viewAbrir = document.getElementById('viewAbrir');
-  const viewLista = document.getElementById('viewLista');
+  // ===== Navegacao entre 3 telas: home (2 botoes), abrir RNC, painel =====
+  const screens = {
+    home: document.getElementById('home'),
+    abrir: document.getElementById('viewAbrir'),
+    painel: document.getElementById('viewPainel')
+  };
 
-  navAbrir.onclick = () => {
-    navAbrir.classList.add('active'); navLista.classList.remove('active');
-    viewAbrir.classList.remove('hidden'); viewLista.classList.add('hidden');
-  };
-  navLista.onclick = () => {
-    navLista.classList.add('active'); navAbrir.classList.remove('active');
-    viewLista.classList.remove('hidden'); viewAbrir.classList.add('hidden');
-    renderLista();
-  };
+  function showScreen(name){
+    Object.values(screens).forEach(el => el.classList.add('hidden'));
+    screens[name].classList.remove('hidden');
+    if(name === 'painel'){ renderPainel(); }
+  }
+
+  document.getElementById('goAbrir').onclick = () => showScreen('abrir');
+  document.getElementById('goPainel').onclick = () => showScreen('painel');
+  document.querySelectorAll('.back-btn').forEach(btn => {
+    btn.onclick = () => showScreen(btn.dataset.back);
+  });
 
   document.getElementById('formRnc').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -78,7 +81,9 @@
     };
     await addRegistro(reg);
     e.target.reset();
+    document.getElementById('data').valueAsDate = new Date();
     alert('RNC registrada com sucesso!');
+    showScreen('home');
   });
 
   function badge(status){
@@ -86,7 +91,7 @@
     return `<span class="badge ${cls}">${status}</span>`;
   }
 
-  async function renderLista(){
+  async function renderPainel(){
     const registros = await getRegistros();
     const kpis = document.getElementById('kpis');
     const abertas = registros.filter(r => r.status === 'Aberta').length;
@@ -129,4 +134,5 @@
   });
 
   document.getElementById('data').valueAsDate = new Date();
+  showScreen('home');
 })();
