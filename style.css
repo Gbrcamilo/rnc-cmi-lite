@@ -96,3 +96,54 @@ footer{text-align:center;padding:20px;color:#888;font-size:12px;}
   .kpi-grid{grid-template-columns:repeat(2,1fr);}
   .choice-card{width:160px;height:160px;}
 }
+
+
+/* ===== Login e cadastro ===== */
+.panel-login{max-width:420px;margin:0 auto;}
+.login-info{color:#555;font-size:13.5px;margin-bottom:8px;}
+.login-erro{color:#c0392b;font-size:13px;margin-top:10px;}
+.cadastro-box{margin-top:24px;border-top:1px solid #eee;padding-top:14px;}
+.cadastro-box summary{cursor:pointer;font-weight:600;color:#0a3d8f;}
+
+.btn-primario{
+  margin-top:22px;background:linear-gradient(145deg,#2f6bff,#0a3d8f);color:#fff;border:none;
+  padding:12px 22px;border-radius:12px;font-weight:700;cursor:pointer;font-size:15px;
+  box-shadow:4px 4px 12px rgba(10,61,143,0.35);
+  transition:transform .2s;
+}
+.btn-primario:hover{transform:translateY(-2px);}
+
+.btn-secundario{
+  background:#fff;border:2px solid #0dbf6e;color:#0a7a49;font-weight:700;
+  padding:10px 18px;border-radius:12px;cursor:pointer;margin-bottom:16px;
+}
+.btn-secundario:hover{background:#e9fbf1;}
+
+.btn-logout{
+  margin-left:auto;background:#fff;border:2px solid #e02424;color:#e02424;font-weight:700;
+  padding:8px 16px;border-radius:12px;cursor:pointer;
+}
+.btn-logout:hover{background:#fdecec;}
+
+.usuario-logado{color:#555;font-size:13px;margin-bottom:12px;}
+
+/* ===== KPIs e tabela (painel) ===== */
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px;}
+.kpi-card{
+  background:#eef1f7;border-radius:16px;padding:18px;text-align:center;
+  box-shadow:4px 4px 10px rgba(0,0,0,0.06),-4px -4px 10px rgba(255,255,255,0.8);
+  display:flex;flex-direction:column;gap:4px;
+}
+.kpi-num{font-size:28px;color:#0a3d8f;font-weight:700;}
+.kpi-label{font-size:13px;color:#555;}
+
+.tabela{width:100%;border-collapse:collapse;font-size:14px;margin-top:16px;}
+.tabela th,.tabela td{text-align:left;padding:10px;border-bottom:1px solid #eee;}
+.tabela th{color:#666;font-size:12.5px;text-transform:uppercase;}
+
+.rodape{text-align:center;padding:20px;color:#888;font-size:12px;}
+
+@media (max-width:600px){
+  .kpis{grid-template-columns:repeat(2,1fr);}
+  .topbar{flex-wrap:wrap;}
+}
