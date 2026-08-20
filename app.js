@@ -1,1 +1,1 @@
-Atualização da lógica de navegação em dois caminhos, fechamento da tela de carregamento, persistência local/Supabase, dashboard, consulta por protocolo, resposta do gestor e exportação CSV.
+JavaScript completo: fluxo entre telas, localStorage como fallback, integração opcional com Supabase, protocolo, consulta, métricas, resposta, atualização de status e exportação CSV.
