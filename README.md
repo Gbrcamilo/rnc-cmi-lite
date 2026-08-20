@@ -21,7 +21,18 @@ Esta versao usa apenas **HTML, CSS e JavaScript puro**, sem build, sem framework
 2. No SQL Editor do Supabase, execute o conteudo do arquivo `schema.sql` deste repositorio.
 3. Em Project Settings > API, copie a **Project URL** e a chave **anon public**.
 4. Edite o arquivo `config.js` deste repositorio e cole a URL e a chave.
-5. Pronto — todas as maquinas que acessarem o site vao usar o mesmo banco.
+
+## Como funciona o login de usuarios
+
+- O sistema usa **Supabase Auth** (gratuito) para login de colaboradores, gestores e administradores.
+- Na tela inicial, o botao **Acompanhar** leva para a tela de login/cadastro.
+- Qualquer pessoa pode criar uma conta clicando em "Ainda nao tem conta? Criar acesso".
+- Apos o cadastro, o Supabase envia um e-mail de confirmacao (configuravel no painel do Supabase).
+- Depois de confirmar, o colaborador faz login normalmente com e-mail e senha.
+- Todo usuario criado recebe automaticamente um perfil na tabela `profiles`, com papel padrao `colaborador`.
+- Para promover alguem a `gestor` ou `admin`, acesse o Supabase (Table Editor > profiles) e edite o campo `papel` manualmente.
+- Sem o login (modo offline, sem `config.js` preenchido), o Acompanhar mostra um aviso e o sistema funciona apenas com dados locais no navegador.
+- Registro de RNC (botao "Abrir RNC") continua funcionando sem login, permitindo notificacao anonima.
 
 ## Como publicar online gratuitamente (GitHub Pages)
 
