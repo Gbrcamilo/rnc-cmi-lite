@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RNC CMI - Registro de Nao Conformidades</title>
 <link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
-<!-- TELA INICIAL: apenas 2 botoes, conceito Uiverse (cards com gradiente/neumorfismo) -->
 <div id="home" class="home">
   <div class="home-header">
     <h1>RNC CMI</h1>
@@ -20,21 +20,20 @@
       <span class="choice-title">Abrir RNC</span>
       <span class="choice-sub">Registrar uma nao conformidade agora</span>
     </button>
-    <button class="choice-card choice-acompanhar" id="goPainel">
+    <button class="choice-card choice-acompanhar" id="goLogin">
       <span class="choice-icon">&#128202;</span>
       <span class="choice-title">Acompanhar</span>
-      <span class="choice-sub">Dashboard, gestao e relatorios</span>
+      <span class="choice-sub">Dashboard, gestao e relatorios (login)</span>
     </button>
   </div>
   <div id="configBox" class="config-alert hidden">
-    Modo offline: configure o <b>config.js</b> com sua conta gratuita do Supabase para compartilhar dados entre todas as maquinas.
+    Modo offline: configure o <b>config.js</b> com sua conta gratuita do Supabase para compartilhar dados entre todas as maquinas e habilitar login.
   </div>
 </div>
 
-<!-- TELA: ABRIR RNC -->
 <div id="viewAbrir" class="screen hidden">
   <div class="topbar">
-    <button class="back-btn" data-back="home">&#8592; Voltar</button>
+    <button class="back-btn" data-back="home">&larr; Voltar</button>
     <h2>Abrir Registro de Nao Conformidade</h2>
   </div>
   <div class="panel">
@@ -53,32 +52,65 @@
       </select>
       <label>Nome do colaborador (opcional)</label>
       <input type="text" id="nome" placeholder="Pode deixar em branco para registro anonimo">
-      <button type="submit" class="btn-submit">Registrar RNC</button>
+      <button type="submit" class="btn-primario">Registrar RNC</button>
     </form>
   </div>
 </div>
 
-<!-- TELA: PAINEL (dashboard + gestao + relatorios) -->
+<div id="viewLogin" class="screen hidden">
+  <div class="topbar">
+    <button class="back-btn" data-back="home">&larr; Voltar</button>
+    <h2>Acesso da equipe</h2>
+  </div>
+  <div class="panel panel-login">
+    <p class="login-info">Entre com seu e-mail e senha cadastrados pelo administrador do sistema.</p>
+    <form id="formLogin">
+      <label>E-mail</label>
+      <input type="email" id="loginEmail" required placeholder="seuemail@hospital.com">
+      <label>Senha</label>
+      <input type="password" id="loginSenha" required placeholder="Sua senha">
+      <button type="submit" class="btn-primario">Entrar</button>
+      <p id="loginErro" class="login-erro hidden"></p>
+    </form>
+    <details class="cadastro-box">
+      <summary>Ainda nao tem conta? Criar acesso</summary>
+      <form id="formCadastro">
+        <label>Nome</label>
+        <input type="text" id="cadNome" required placeholder="Seu nome">
+        <label>E-mail</label>
+        <input type="email" id="cadEmail" required placeholder="seuemail@hospital.com">
+        <label>Senha</label>
+        <input type="password" id="cadSenha" required placeholder="Minimo 6 caracteres">
+        <button type="submit" class="btn-secundario">Criar conta</button>
+        <p id="cadastroMsg" class="login-erro hidden"></p>
+      </form>
+    </details>
+  </div>
+</div>
+
 <div id="viewPainel" class="screen hidden">
   <div class="topbar">
-    <button class="back-btn" data-back="home">&#8592; Voltar</button>
+    <button class="back-btn" data-back="home">&larr; Voltar</button>
     <h2>Painel de Acompanhamento</h2>
+    <button id="btnLogout" class="btn-logout">Sair</button>
   </div>
   <div class="panel">
-    <div class="kpi-grid" id="kpis"></div>
-    <div class="panel-actions">
-      <button class="btn-outline" id="btnExportar">Exportar CSV (Relatorio)</button>
-    </div>
-    <table>
-      <thead><tr><th>Data</th><th>Setor</th><th>Gravidade</th><th>Status</th><th>Descricao</th><th>Gestao</th></tr></thead>
+    <p id="usuarioLogado" class="usuario-logado"></p>
+    <div id="kpis" class="kpis"></div>
+    <button id="btnExportar" class="btn-secundario">Exportar CSV (Relatorio)</button>
+    <table class="tabela">
+      <thead>
+        <tr>
+          <th>Data</th><th>Setor</th><th>Gravidade</th><th>Status</th><th>Descricao</th><th>Gestao</th>
+        </tr>
+      </thead>
       <tbody id="tbody"></tbody>
     </table>
   </div>
 </div>
 
-<footer>Sistema RNC CMI Lite &mdash; leve, gratuito, hospedado no GitHub Pages</footer>
+<footer class="rodape">Sistema RNC CMI Lite &mdash; leve, gratuito, hospedado no GitHub Pages</footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script src="config.js"></script>
 <script src="app.js"></script>
 </body>
